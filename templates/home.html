@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Load Balancer Test App{% endblock %}
+{% block content %}
+    <h1>Azure Load Balancer Test App</h1>
+    
+    <div class="server-info">
+        <h2>Server Information</h2>
+        <ul>
+            <li><strong>Hostname:</strong> {{ hostname }}</li>
+            <li><strong>IP Address:</strong> {{ ip_address }}</li>
+            <li><strong>Date/Time:</strong> <span id="current-time"></span></li>
+        </ul>
+    </div>
+    
+    <div class="actions">
+        <h2>Load Balancer Testing</h2>
+        <p>Use this application to test connectivity to other servers in your Azure internal network.</p>
+        <a href="{{ url_for('test_connectivity') }}" class="action-button">Start Connectivity Test</a>
+    </div>
+    
+    <script>
+        function updateTime() {
+            document.getElementById('current-time').textContent = new Date().toLocaleString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Connectivity Test Results{% endblock %}
+{% block content %}
+    <h1>Connectivity Test Results</h1>
+    
+    <div class="result-summary {% if result.success %}success{% else %}failure{% endif %}">
+        <h2>
+            {% if result.success %}
+                ✅ Connection Successful
+            {% else %}
+                ❌ Connection Failed
+            {% endif %}
+        </h2>
+    </div>
+    
+    <div class="result-details">
+        <h3>Test Details</h3>
+        <table class="result-table">
+            <tr>
+                <th>Source Information</th>
+                <td>
+                    <strong>Hostname:</strong> {{ result.hostname }}<br>
+                    <strong>IP Address:</strong> {{ result.source_ip }}<br>
+                    <strong>Timestamp:</strong> {{ result.timestamp }}
+                </td>
+            </tr>
+            <tr>
+                <th>Target Information</th>
+                <td>
+                    <strong>Target IP:</strong> {{ result.target_ip }}<br>
+                    <strong>URL Tested:</strong> {{ result.url_tested }}
+                </td>
+            </tr>
+            <tr>
+                <th>Result</th>
+                <td>
+                    {% if result.success %}
+                        <strong>Status Code:</strong> {{ result.status_code }}<br>
+                        <strong>Response Time:</strong> {{ result.response_time }} seconds
+                    {% else %}
+                        <strong>Error:</strong> {{ result.error }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% if result.response_text is defined %}
+            <tr>
+                <th>Response Preview</th>
+                <td class="response-text">
+                    <pre>{{ result.response_text }}</pre>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    
+    <div class="action-links">
+        <a href="{{ url_for('test_connectivity') }}" class="action-button">Test Another Connection</a>
+        <a href="{{ url_for('home') }}" class="action-link">Return to Home</a>
+    </div>
+{% endblock %}

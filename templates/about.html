@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}About{% endblock %}
+{% block content %}
+    <h1>About the Azure Load Balancer Test App</h1>
+    
+    <div class="about-content">
+        <p>This application is designed to test Azure internal load balancer functionality by allowing you to:</p>
+        
+        <ul>
+            <li>Test HTTP connectivity to internal IP addresses in your Azure network</li>
+            <li>Verify load balancer rules are working correctly</li>
+            <li>Check direct server-to-server communication</li>
+            <li>Troubleshoot networking issues</li>
+        </ul>
+        
+        <h2>How It Works</h2>
+        <p>The application makes HTTP/HTTPS requests to specified IP addresses and ports within your Azure internal network. 
+        It displays detailed information about the connection attempt, including:</p>
+        
+        <ul>
+            <li>Connection success or failure</li>
+            <li>Response time</li>
+            <li>HTTP status codes</li>
+            <li>Response content (if available)</li>
+        </ul>
+        
+        <h2>Usage Scenarios</h2>
+        <p>This tool is particularly useful when:</p>
+        <ul>
+            <li>Setting up new load balancer rules</li>
+            <li>Troubleshooting connectivity issues between services</li>
+            <li>Verifying network security group (NSG) configurations</li>
+            <li>Testing server health</li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Test Load Balancer Connectivity{% endblock %}
+{% block content %}
+    <h1>Test Azure Internal Load Balancer Connectivity</h1>
+    
+    <div class="form-container">
+        <form method="POST" action="{{ url_for('test_connectivity') }}">
+            <div class="form-group">
+                <label for="target_ip">Target IP Address:</label>
+                <input type="text" id="target_ip" name="target_ip" required
+                       placeholder="Enter IP address to test (e.g., 10.0.0.5)">
+            </div>
+            
+            <div class="form-group">
+                <label for="protocol">Protocol:</label>
+                <select id="protocol" name="protocol">
+                    <option value="http">HTTP</option>
+                    <option value="https">HTTPS</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="port">Port:</label>
+                <input type="number" id="port" name="port" value="80" min="1" max="65535">
+            </div>
+            
+            <div class="form-group">
+                <label for="endpoint">Endpoint Path:</label>
+                <input type="text" id="endpoint" name="endpoint" value="/" 
+                       placeholder="Enter endpoint path (e.g., /api/health)">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="submit-button">Test Connection</button>
+                <a href="{{ url_for('home') }}" class="cancel-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+    
+    <div class="tips-container">
+        <h3>Tips</h3>
+        <ul>
+            <li>Use this tool to test connectivity to other servers behind your Azure internal load balancer</li>
+            <li>To test a specific load balancer rule, enter the load balancer's private IP address</li>
+            <li>You can also test direct connectivity to other app instances using their private IPs</li>
+            <li>For HTTPS endpoints, ensure you're using the correct port (usually 443)</li>
+        </ul>
+    </div>
+{% endblock %}
