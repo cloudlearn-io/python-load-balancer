@@ -22,7 +22,8 @@ def about():
 @app.route("/test-connectivity", methods=["GET", "POST"])
 def test_connectivity():
     if request.method == "POST":
-        target_ip = request.form.get("target_ip")
+        # Strip any leading/trailing whitespace from the target IP
+        target_ip = request.form.get("target_ip", "").strip()
         protocol = request.form.get("protocol", "http")
         port = request.form.get("port", 80)
         endpoint = request.form.get("endpoint", "/")
@@ -36,6 +37,8 @@ def test_connectivity():
         result["url_tested"] = url
         
         try:
+            # Log attempt for debugging
+            print(f"Attempting to connect to: {url}")
             response = requests.get(url, timeout=5)
             result["status_code"] = response.status_code
             result["success"] = response.status_code < 400
@@ -50,6 +53,8 @@ def test_connectivity():
         except requests.exceptions.RequestException as e:
             result["success"] = False
             result["error"] = str(e)
+            # Add more detailed debugging info
+            print(f"Connection error: {e}")
         
         return render_template("connectivity_result.html", result=result)
     
